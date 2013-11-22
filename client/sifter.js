@@ -33,6 +33,7 @@ var g_LuminanceCurve;
 var g_NumSelected = 0;
 var g_SelectedDocs = {};
 var g_CurDocIDs = '';
+var g_SortTable;
 
 function pluralize(num, descriptor) {
   var ret = num;
@@ -335,7 +336,7 @@ function recvIndexInfo(results) {
 function openIndex(event) {
   $.ajax({
     url: 'index',
-    type: 'POST',
+    type: 'POST', // orig post
     contentType: 'application/json',
     data: JSON.stringify({Path: $('#indexInfoPath').val()}),
     dataType: "json",
@@ -368,6 +369,7 @@ function clearSelected() {
 }
 
 function recvComments(comments) {
+
   if (comments == null || typeof comments == "undefined" || typeof comments.length == "undefined") {
     return;
   }
@@ -408,6 +410,7 @@ function makeDocsClicky() {
 
 function loadFiles() {
   $('#resultsHeader').html("<tr><th></th><th>ID</th><th>Score</th><th>Name</th><th>Path</th><th>Extension</th><th>Size</th><th>Modified</th><th>Accessed</th><th>Created</th><th>Cell</th><th>Cell Distance</th></tr>");
+  
 
   $('#results').dataTable({
     "sAjaxSource": "dt-results",
@@ -416,22 +419,24 @@ function loadFiles() {
     "fnDrawCallback": function() {
       $.ajax({
         url: 'bookmarks',
-        type: 'GET',
+        type: 'GET', //get works with bookmarks, although you cannot delete them. more testing needed
         data: {id: g_OpenIndices[0].Id, docs: g_CurDocIDs},
         dataType: "json",
         success: recvComments,
         error: function(xhr, status) { console.warn("failed to request comments"); }
       }); },
     // "aaData":tblData,
-    "bFilter": false,
+    "bFilter": true,
     "bDestroy": true,
     "bProcessing": true,
     "bServerSide": true,
-    "bSort": false, // to-do, do sorting on lucene side
+    "bSort": true, // to-do, do sorting on lucene side
+	//"bSortable": true, //asdf
     "bStateSave": true,
     "sScrollX": "100%",
     "bScrollCollapse": true,
     "sDom": "<'row'<'span4 offset8'l>r>t<'row'><'span5'i><'span3'p>>",
+	//"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", // trying something
     "sPaginationType":"bootstrap",
     "aoColumnDefs": [
       {"sType":"numeric", "aTargets":[0], "sWidth":"2em", "mRender": function(data, type, full) {
@@ -454,6 +459,7 @@ function loadFiles() {
   makeDocsClicky();
   $('#downloadBtn').attr("href", "export?id=" + g_CurQueryId);
   $('#downloadBtn').removeClass("disabled");
+  
 }
 
 function loadHits() {
@@ -463,15 +469,17 @@ function loadHits() {
     "sAjaxSource": "dt-hits",
     "sServerMethod": "GET",
     "fnServerParams": function(aoData) { aoData.push({"name":"id", "value":g_CurQueryId }); },
-    "bFilter": false,
+    "bFilter": true,
     "bDestroy": true,
     "bProcessing": true,
     "bServerSide": true,
-    "bSort": false, // to-do, do sorting on lucene side
+    "bSort": true, // to-do, do sorting on lucene side
+	//"bSortable": true, //added bsortable true and changed bsort
     "bStateSave": true,
     "sScrollX": "100%",
     "bScrollCollapse": true,
     "sDom": "<'row'<'span4 offset8'l>r>t<'row'><'span5'i><'span3'p>>",
+	//"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", //trying something
     "sPaginationType":"bootstrap",
     "aoColumnDefs": [
       {"aTargets":[0], "mRender": function(data, type, full) {
@@ -488,6 +496,7 @@ function loadHits() {
   makeDocsClicky();
   $('#downloadBtn').attr("href", "exporthits?id=" + g_CurQueryId);
   $('#downloadBtn').removeClass("disabled");
+
 }
 
 function recvResults(searchResults) {
@@ -542,7 +551,7 @@ function bookmarkSelected() {
   }
   $.ajax({
     url: 'bookmark?id=' + g_OpenIndices[0].Id,
-    type: 'POST',
+    type: 'GET',
     contentType: 'application/json',
     data: JSON.stringify({Docs: docs, Comment: $("#commentText").val()}),
     dataType: "json",
@@ -588,10 +597,33 @@ function showDoc(doc) {
 
 function showRefDate(refDate) {
   $('#refDate').text((new Date(refDate)).toUTCString());
+
+
 }
 
-$(document).ready(function() {
-  $('#indexInfoOkButton').click(openIndex);
+
+$(document).ready(function() {                  			
+
+
+  
+ $('#results').tablesorter; 
+
+// Jonathan Solis - 10/31/13 (8:01 PM)
+// Changes focus to textbox on Add Evidence Form
+  $('#indexInfo').on('shown.bs.modal', function () {
+    $('#indexInfoPath').focus();
+})
+  
+  
+  $('#indexInfoOkButton').click(openIndex);             
+  $('#indexInfoForm').keypress(function(event){ // enter key to execute OK button
+    if(event.keyCode == 13){
+        $('#indexInfoOkButton').click();
+		event.preventDefault();
+    }
+});
+
+
   $('#searchQuery').submit(submitSearch);
   $('#bookmarkBtn').click(showBookmarkDlg);
 //  $('#downloadBtn').click(downloadResults);
@@ -604,7 +636,10 @@ $(document).ready(function() {
     url: 'refdate',
     type: 'GET',
     dataType: 'json',
-    success: showRefDate,
+    success: showRefDate,  
     error: function(xhr, status) { console.warn("Failed to request reference date."); }
   });
+  
+   //$('#results').trigger("update");
+  
 } );
