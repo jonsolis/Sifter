@@ -1,0 +1,39 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/lucene-analyzers-common-4.5-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsr311-api-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-sandbox-4.5-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-xc-1.9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api-2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-mapper-asl-1.9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-asl-1.9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-core-1.17.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/liblinear-1.92.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/tika-app-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-json-1.17.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-queryparser-4.5-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-all-7.4.5.v20110725.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-jaxrs-1.9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-io-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-configuration-1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mahout-core-0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-servlet-1.17.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-highlighter-4.5-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hadoop-core-1.0.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jettison-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/guava-14.0-rc1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-core-4.5-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-server-1.17.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mahout-math-0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/uncommons-maths-1.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-client-1.17.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
